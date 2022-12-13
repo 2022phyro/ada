@@ -1,5 +1,34 @@
 #include "monty.h"
 /**
+ * pen - opens and reads the contents of a file
+ *
+ * @filename: the filename
+ * Return: a string containing the read bytes
+ */
+char *pen(char *filename)
+{
+	int fd;
+	struct stat fdstat;
+	size_t size, r;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		exit(EXIT_FAILURE);
+	}
+	fstat(fd, &fdstat);
+	r = 0;
+	size = fdstat.st_size;
+
+	char *buffer = malloc(sizeof(char) * size);
+	
+	r = read(fd, buffer, size);
+	close(fd);
+	buffer[size] = '\0';
+	return (buffer);
+}
+/**
  * _realloc - reallocates a memory block using malloc and free
  *
  * @ptr: a pointer to the previously allocated memory
@@ -14,9 +43,9 @@ void *_realloc(void *ptr, size_t osize, size_t nsize)
 	void *buffer;
 
 	if (osize == nsize)
-		return (ptr);
+	return (ptr);
 	if (!nsize && ptr)
-	{
+	{	
 		free(ptr);
 		return (NULL);
 	}
@@ -34,3 +63,4 @@ void *_realloc(void *ptr, size_t osize, size_t nsize)
 	free(ptr);
 	return (buffer);
 }
+

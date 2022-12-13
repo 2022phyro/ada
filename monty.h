@@ -3,6 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#define NPTRS(n) (n * sizeof(void *))
+#define NCHARS(n) (n * sizeof(char))
 #define bool int
 #define true 1
 #define false 0
@@ -34,22 +40,29 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-void push(stack_t **head, unsigned int line_no, char *pa, bool stat);
-void pall(stack_t **head, unsigned int line_no);
-void pint(stack_t **head, unsigned int line_no);
-void pop(stack_t **head, unsigned int line_no);
-void swap(stack_t **head, unsigned int line_no);
-void add(stack_t **head, unsigned int line_no);
-void nop(stack_t **head, unsigned int line_no);
-void sub(stack_t **head, unsigned int line_no);
-void _div(stack_t **head, unsigned int line_no);
-void mul(stack_t **head, unsigned int line_no);
-void mod(stack_t **head, unsigned int line_no);
-void pchar(stack_t **head, unsigned int line_no);
-void pstr(stack_t **head, unsigned int line_no);
-void rotr(stack_t **head, unsigned int line_no);
-void stack(stack_t **head, unsigned int line_no);
-void queue(stack_t **head, unsigned int line_no);
+void push(stack_t **head, unsigned int line_no, char *pa);
+void op_pall(stack_t **head, unsigned int line_no);
+void op_pint(stack_t **head, unsigned int line_no);
+void op_pop(stack_t **head, unsigned int line_no);
+void op_swap(stack_t **head, unsigned int line_no);
+void op_add(stack_t **head, unsigned int line_no);
+void op_nop(stack_t **head, unsigned int line_no);
+void op_sub(stack_t **head, unsigned int line_no);
+void op_div(stack_t **head, unsigned int line_no);
+void op_mul(stack_t **head, unsigned int line_no);
+void op_mod(stack_t **head, unsigned int line_no);
+void op_pchar(stack_t **head, unsigned int line_no);
+void op_pstr(stack_t **head, unsigned int line_no);
+void op_rotr(stack_t **head, unsigned int line_no);
+void op_stack(stack_t **head, unsigned int line_no);
+void op_queue(stack_t **head, unsigned int line_no);
+bool appendStr(char ***arr, size_t *size, char *str, int index);
+bool appendChar(char **string, size_t *size, char chr, int index);
+int appendInt(char **string, size_t *size, int num, int index);
+char **split(char *string, char *delimiter, unsigned int max);
+void *_realloc(void *ptr, size_t osize, size_t nsize);
+char *pen(char *filename);
+void (*get_opcode(char *s))(stack_t **, unsigned int);
 
 #endif /* MONTY_H */
 

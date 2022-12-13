@@ -1,3 +1,4 @@
+#include "monty.h"
 /**
  * appendStr - append a string to an array of strings
  *
@@ -124,13 +125,13 @@ int appendInt(char **string, size_t *size, int num, int index)
  * - delimiters is NULL
  * - delimiters is empty
  */
-char **split(char *string, char *delimiter, unsigned int max, bool group_quote)
+char **split(char *string, char *delimiter, unsigned int max)
 {
 	char **array, prev = '\0', curr;
 	size_t arr_size = 2;
 	unsigned int arr_ind = 0, str_ind, i;
 	bool flipped;
-	int quote_index;
+
 
 	if (!(string && *string && delimiter && *delimiter))
 		return (NULL);
@@ -148,12 +149,6 @@ char **split(char *string, char *delimiter, unsigned int max, bool group_quote)
 			}
 		if (prev == '\0' && flipped == false)
 			appendStr(&array, &arr_size, &string[str_ind], arr_ind++);
-		if (group_quote && (!flipped && (curr == '\'' || curr == '"')))
-		{
-			quote_index = findquote(string + str_ind + 1, curr);
-			if (quote_index != -1)
-				str_ind += quote_index + 1;
-		}
 		if (max && max + 1 == arr_ind)
 			break;
 		prev = string[str_ind];

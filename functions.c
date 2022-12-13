@@ -3,19 +3,20 @@
  * push - pushes an element onto the stack
  *
  * @line_no: the line number of the argument
- * @n: the integer to be pushed
+ * @result: the integer to be pushed
  * Return: nothing, it is void
  */
-void push(stack_t **head, unsigned int line_no, char *pa, bool stat)
+void push(stack_t **head, unsigned int line_no, char *pa)
 {
 	stack_t *temp, *temp2 = (*head);
-	int n = atoi(pa);
+	int n;
 
-	if (!stat || !n)
+	if (pa == NULL)
 	{
 		fprintf(stderr, "%d: usage: push integer\n", line_no);
 		exit(EXIT_FAILURE);
 	}
+	n = atoi(pa);
 	temp = malloc(sizeof(stack_t));
 	if (temp == NULL)
 	{
@@ -37,7 +38,7 @@ void push(stack_t **head, unsigned int line_no, char *pa, bool stat)
  * @line_no: the line number
  * Return: nothing, it is void
  */
-void pall(stack_t **head, unsigned int line_no)
+void op_pall(stack_t **head, unsigned int line_no)
 {
 	stack_t *temp = (*head);
 	
@@ -55,7 +56,7 @@ void pall(stack_t **head, unsigned int line_no)
  * @line_no: the line number
  * Return: nothing, it is void
  */
-void pint(stack_t **head, unsigned int line_no)
+void op_pint(stack_t **head, unsigned int line_no)
 {
 	if ((*head) == NULL)
 	{
@@ -72,7 +73,7 @@ void pint(stack_t **head, unsigned int line_no)
  * @line_no: the line_number
  * Return: nothing, it is a void
  */
-void pop(stack_t **head, unsigned int line_no)
+void op_pop(stack_t **head, unsigned int line_no)
 {
 	stack_t *temp;
 
@@ -93,7 +94,7 @@ void pop(stack_t **head, unsigned int line_no)
  * @line_no: the line_number
  * Return: nothing, it is a void
  */
-void swap(stack_t **head, unsigned int line_no)
+void op_swap(stack_t **head, unsigned int line_no)
 {
 	stack_t *temp = (*head);
 
