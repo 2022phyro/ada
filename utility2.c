@@ -9,7 +9,8 @@ char *pen(char *filename)
 {
 	int fd;
 	struct stat fdstat;
-	size_t size, r;
+	size_t size;
+	char *buffer;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
@@ -18,12 +19,11 @@ char *pen(char *filename)
 		exit(EXIT_FAILURE);
 	}
 	fstat(fd, &fdstat);
-	r = 0;
 	size = fdstat.st_size;
 
-	char *buffer = malloc(sizeof(char) * size);
+	buffer = malloc(sizeof(char) * size);
 
-	r = read(fd, buffer, size);
+	read(fd, buffer, size);
 	close(fd);
 	buffer[size] = '\0';
 	return (buffer);

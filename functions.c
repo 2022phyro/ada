@@ -3,13 +3,13 @@
  * push - pushes an element onto the stack
  *
  * @line_no: the line number of the argument
- * @result: the integer to be pushed
+ * @pa: the integer to be pushed
  * Return: nothing, it is void
  */
 
 void push(stack_t **head, unsigned int line_no, char *pa)
 {
-	stack_t *temp, *temp2 = (*head);
+	stack_t *temp;
 	int n;
 
 	if (pa == NULL)
@@ -22,7 +22,7 @@ void push(stack_t **head, unsigned int line_no, char *pa)
 	if (temp == NULL)
 	{
 		fprintf(stderr, "Error, cannot malloc");
-		return;
+		exit(EXIT_FAILURE);
 	}
 	temp->prev = NULL;
 	temp->next = (*head);
@@ -34,7 +34,7 @@ void push(stack_t **head, unsigned int line_no, char *pa)
 }
 
 /**
- * pall - prints all values on the stack
+ * op_pall - prints all values on the stack
  *
  * @head: the head of the stack
  * @line_no: the line number
@@ -43,8 +43,10 @@ void push(stack_t **head, unsigned int line_no, char *pa)
 
 void op_pall(stack_t **head, unsigned int line_no)
 {
-	stack_t *temp = (*head);
-
+	stack_t *temp;
+	(void)line_no;
+       
+	temp = (*head);
 	while (temp)
 	{
 		fprintf(stdout, "%d\n", temp->n);
@@ -54,7 +56,7 @@ void op_pall(stack_t **head, unsigned int line_no)
 }
 
 /**
- * pint - prints the first member of the stack
+ * op_pint - prints the first member of the stack
  *
  * @head: the head of the stack
  * @line_no: the line number
@@ -73,7 +75,7 @@ void op_pint(stack_t **head, unsigned int line_no)
 }
 
 /**
- * pop - removes the top element in the stack
+ * op_pop - removes the top element in the stack
  *
  * @head: the head of the stack
  * @line_no: the line_number
@@ -96,7 +98,7 @@ void op_pop(stack_t **head, unsigned int line_no)
 }
 
 /**
- * swap - swaps the top two elements in the stack
+ * op_swap - swaps the top two elements in the stack
  *
  * @head: the head of the stack
  * @line_no: the line_number
@@ -105,15 +107,17 @@ void op_pop(stack_t **head, unsigned int line_no)
 
 void op_swap(stack_t **head, unsigned int line_no)
 {
-	stack_t *temp = (*head);
-
+	stack_t *temp;	
+	int a;
+	temp = (*head);
 	if (!(temp && temp->next))
 	{
 		fprintf(stderr, "%d: can't swap, stack too short\n", line_no);
 		exit(EXIT_FAILURE);
 	}
-	int a = temp->n;
+	a = temp->n;
 	temp->n = temp->next->n;
 	temp->next->n = a;
+
 	return;
 }

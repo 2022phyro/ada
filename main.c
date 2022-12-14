@@ -11,7 +11,7 @@ int main(int ac, char *av[])
 {
 	stack_t *h = NULL;
 	char **arguments, **result;
-	size_t line_no, i;
+	size_t i;
 	void (*func)(stack_t **, unsigned int);
 	if (ac < 2)
 	{
@@ -30,12 +30,12 @@ int main(int ac, char *av[])
 			func = get_opcode(result[0]);
 			if (func == NULL)
 			{
-				fprintf(stderr, "%d: unknown intruction %s\n", i + 1, result[0]);
+				fprintf(stderr, "%ld: unknown intruction: %s\n", i + 1, result[0]);
 				exit(EXIT_FAILURE);
 			}
 			func(&h, i + 1);
 		}
 		i++;
 	}
-
+	return (0);
 }
