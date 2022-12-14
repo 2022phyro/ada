@@ -1,5 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -65,4 +66,3 @@ char *pen(char *filename);
 void (*get_opcode(char *s))(stack_t **, unsigned int);
 
 #endif /* MONTY_H */
-

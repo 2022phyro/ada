@@ -6,6 +6,7 @@
  * @av: the array of command line arguments
  * Return: success
  */
+
 int main(int ac, char *av[])
 {
 	stack_t *h = NULL;
@@ -38,4 +39,3 @@ int main(int ac, char *av[])
 	}
 
 }
-

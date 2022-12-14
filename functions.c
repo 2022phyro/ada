@@ -6,6 +6,7 @@
  * @result: the integer to be pushed
  * Return: nothing, it is void
  */
+
 void push(stack_t **head, unsigned int line_no, char *pa)
 {
 	stack_t *temp, *temp2 = (*head);
@@ -31,6 +32,7 @@ void push(stack_t **head, unsigned int line_no, char *pa)
 	(*head) = temp;
 	return;
 }
+
 /**
  * pall - prints all values on the stack
  *
@@ -38,6 +40,7 @@ void push(stack_t **head, unsigned int line_no, char *pa)
  * @line_no: the line number
  * Return: nothing, it is void
  */
+
 void op_pall(stack_t **head, unsigned int line_no)
 {
 	stack_t *temp = (*head);
@@ -49,6 +52,7 @@ void op_pall(stack_t **head, unsigned int line_no)
 	}
 	return;
 }
+
 /**
  * pint - prints the first member of the stack
  *
@@ -56,6 +60,7 @@ void op_pall(stack_t **head, unsigned int line_no)
  * @line_no: the line number
  * Return: nothing, it is void
  */
+
 void op_pint(stack_t **head, unsigned int line_no)
 {
 	if ((*head) == NULL)
@@ -66,6 +71,7 @@ void op_pint(stack_t **head, unsigned int line_no)
 	fprintf(stdout, "%d\n", (*head)->n);
 	return;
 }
+
 /**
  * pop - removes the top element in the stack
  *
@@ -73,6 +79,7 @@ void op_pint(stack_t **head, unsigned int line_no)
  * @line_no: the line_number
  * Return: nothing, it is a void
  */
+
 void op_pop(stack_t **head, unsigned int line_no)
 {
 	stack_t *temp;
@@ -87,6 +94,7 @@ void op_pop(stack_t **head, unsigned int line_no)
 	free(temp);
 	return;
 }
+
 /**
  * swap - swaps the top two elements in the stack
  *
@@ -94,6 +102,7 @@ void op_pop(stack_t **head, unsigned int line_no)
  * @line_no: the line_number
  * Return: nothing, it is a void
  */
+
 void op_swap(stack_t **head, unsigned int line_no)
 {
 	stack_t *temp = (*head);
@@ -108,4 +117,3 @@ void op_swap(stack_t **head, unsigned int line_no)
 	temp->next->n = a;
 	return;
 }
-

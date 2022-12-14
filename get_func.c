@@ -1,5 +1,6 @@
 #include "monty.h"
 /**
+ * get_opcode - 
  */
 void (*get_opcode(char *s))(stack_t **, unsigned int)
 {
