@@ -9,6 +9,7 @@
  *
  * Return: 1 if succeeded, or 0 if it failed
  */
+
 bool appendStr(char ***arr, size_t *size, char *str, int index)
 {
 	size_t arr_size;
@@ -46,6 +47,7 @@ bool appendStr(char ***arr, size_t *size, char *str, int index)
  *
  * Return: 1 if succeeded, or 0 if it failed
  */
+
 bool appendChar(char **string, size_t *size, char chr, int index)
 {
 	size_t buf_size;
@@ -88,6 +90,7 @@ bool appendChar(char **string, size_t *size, char chr, int index)
  * Return: number of digits appended.
  *		-1 is return if appendChar failed.
  */
+
 int appendInt(char **string, size_t *size, int num, int index)
 {
 	int len = 0;
@@ -125,6 +128,7 @@ int appendInt(char **string, size_t *size, int num, int index)
  * - delimiters is NULL
  * - delimiters is empty
  */
+
 char **split(char *string, char *delimiter, unsigned int max)
 {
 	char **array, prev = '\0', curr;
@@ -162,4 +166,3 @@ char **split(char *string, char *delimiter, unsigned int max)
 	}
 	return (array);
 }
-
