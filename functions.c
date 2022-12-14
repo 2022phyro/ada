@@ -41,7 +41,7 @@ void push(stack_t **head, unsigned int line_no, char *pa)
 void op_pall(stack_t **head, unsigned int line_no)
 {
 	stack_t *temp = (*head);
-	
+
 	while (temp)
 	{
 		fprintf(stdout, "%d\n", temp->n);

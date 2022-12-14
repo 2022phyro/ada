@@ -22,7 +22,7 @@ char *pen(char *filename)
 	size = fdstat.st_size;
 
 	char *buffer = malloc(sizeof(char) * size);
-	
+
 	r = read(fd, buffer, size);
 	close(fd);
 	buffer[size] = '\0';
@@ -45,7 +45,7 @@ void *_realloc(void *ptr, size_t osize, size_t nsize)
 	if (osize == nsize)
 	return (ptr);
 	if (!nsize && ptr)
-	{	
+	{
 		free(ptr);
 		return (NULL);
 	}
