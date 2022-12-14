@@ -21,7 +21,7 @@ char *pen(char *filename)
 	fstat(fd, &fdstat);
 	size = fdstat.st_size;
 
-	buffer = malloc(sizeof(char) * size);
+	buffer = malloc(sizeof(char) * size + 1);
 
 	read(fd, buffer, size);
 	close(fd);

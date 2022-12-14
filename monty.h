@@ -55,6 +55,7 @@ void op_mod(stack_t **head, unsigned int line_no);
 void op_pchar(stack_t **head, unsigned int line_no);
 void op_pstr(stack_t **head, unsigned int line_no);
 void op_rotr(stack_t **head, unsigned int line_no);
+void op_rotl(stack_t **head, unsigned int line_no);
 void op_stack(stack_t **head, unsigned int line_no);
 void op_queue(stack_t **head, unsigned int line_no);
 bool appendStr(char ***arr, size_t *size, char *str, int index);
@@ -63,6 +64,8 @@ int appendInt(char **string, size_t *size, int num, int index);
 char **split(char *string, char *delimiter, unsigned int max);
 void *_realloc(void *ptr, size_t osize, size_t nsize);
 char *pen(char *filename);
+int asci(int n);
 void (*get_opcode(char *s))(stack_t **, unsigned int);
-
+void free_stack(stack_t *h);
+void free_str(char **s);
 #endif /* MONTY_H */

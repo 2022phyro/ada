@@ -8,19 +8,21 @@
  */
 void op_add(stack_t **head, unsigned int line_no)
 {
-	stack_s *temp;
-	int a;
-
-	temp = (*head);
-	if (!(temp && temp->next))
+	stack_t *ne;
+	int xsum;
+	
+	ne = (*head);
+	if (!(ne && ne->next))
 	{
                 fprintf(stderr, "%ld: can't add, stack too short\n", line_no);
-                exit(EXIT_FAILURE)
+                exit(EXIT_FAILURE);
 	}
-	a = temp->n + temp->next->n;
-	(*head)->next->n = a;
-	(*head) = (*head->next);
-	free(temp);
+	xsum = ne->n + ne->next->n;
+	ne->next->n = xsum;
+	(*head) = (*head)->next;
+	free(ne);
+	(*head)->prev = NULL;
+	return;
 }
 /**
  * op_sub - subtracts the first from the second element in the stack
@@ -30,17 +32,19 @@ void op_add(stack_t **head, unsigned int line_no)
  * Return: Nothing, it is void
  */
 void op_sub(stack_t **head, unsigned int line_no)
-{                                                                  stack_s *temp;
+{
+	stack_t *temp;
         int a;
-
-        temp = (*head);
-        if (!(temp && temp->next))                                 {                                                                  fprintf(stderr, "%ld: can't add, stack too short\n", line_no);
-                exit(EXIT_FAILURE)
-        }
-        a = temp->next->n - temp->n;
-        (*head)->next->n = a;
-        (*head) = (*head->next);
-        free(temp);
+	temp = (*head);
+        if (!(temp && temp->next))
+	{
+		fprintf(stderr, "%ld: can't sub stack too short\n", line_no);
+		exit(EXIT_FAILURE);
+	}
+	a = temp->next->n - temp->n;
+	temp->next->n = a;
+	(*head) = (*head)->next;
+	free(temp);
 }
 /**
  * op_mul - multiplies the first and second element in the stack
@@ -50,17 +54,20 @@ void op_sub(stack_t **head, unsigned int line_no)
  * Return: Nothing, it is void
  */
 void op_mul(stack_t **head, unsigned int line_no)
-{                                                                  stack_s *temp;
+{
+	stack_t *temp;
         int a;
 
         temp = (*head);
-        if (!(temp && temp->next))                                 {                                                                  fprintf(stderr, "%ld: can't add, stack too short\n", line_no);
-                exit(EXIT_FAILURE)
-        }
-        a = temp->n * temp->next->n;
-        (*head)->next->n = a;
-        (*head) = (*head->next);
-        free(temp);
+        if (!(temp && temp->next))
+	{
+		fprintf(stderr, "%ld: can't add, stack too short\n", line_no);
+		exit(EXIT_FAILURE);
+	}
+	a = (temp->next->n) * (temp->n);
+	temp->next->n = a;
+	(*head) = (*head)->next;
+	free(temp);
 }
 /**
  * op_div - divides the second by thr first element in the stack
@@ -70,22 +77,25 @@ void op_mul(stack_t **head, unsigned int line_no)
  * Return: Nothing, it is void
  */
 void op_div(stack_t **head, unsigned int line_no)
-{                                                                  stack_s *temp;
-        int a;
+{
+	stack_t *temp;
+	int a;
 
-        temp = (*head);
-        if (!(temp && temp->next))                                 {                                                                  fprintf(stderr, "%ld: can't add, stack too short\n", line_no);
-                exit(EXIT_FAILURE)
-        }
+	temp = (*head);
+	if (!(temp && temp->next))
+	{
+		fprintf(stderr, "%ld: can't add, stack too short\n", line_no);
+		exit(EXIT_FAILURE);
+	}
 	if (temp->n == 0)
 	{
 		fprintf(stderr, "%ld: division by zero\n", line_no);
 		exit(EXIT_FAILURE);
 	}
-        a = temp->next->n / temp->n;
-        (*head)->next->n = a;
-        (*head) = (*head->next);
-        free(temp);
+	a = temp->next->n / temp->n;
+	temp->next->n = a;
+	(*head) = (*head)->next;
+	free(temp);
 }
 /**
  * op_mod - gives the modulus of the second by the first element in the stack
@@ -95,11 +105,14 @@ void op_div(stack_t **head, unsigned int line_no)
  * Return: Nothing, it is void
  */
 void op_mod(stack_t **head, unsigned int line_no)
-{                                                                  stack_s *temp;
-        int a;
+{
+	stack_t *temp;
+	int a;
 
         temp = (*head);
-        if (!(temp && temp->next))                                 {                                                                  fprintf(stderr, "%ld: can't add, stack too short\n", line_no);
+        if (!(temp && temp->next))
+	{
+		fprintf(stderr, "%ld: can't add, stack too short\n", line_no);
                 exit(EXIT_FAILURE);
         }
 	if (temp->n == 0)
@@ -107,8 +120,8 @@ void op_mod(stack_t **head, unsigned int line_no)
 		fprintf(stderr, "%ld: division by zero\n", line_no);
 		exit(EXIT_FAILURE);
 	}
-        a = temp->next->n % temp->n;
-        (*head)->next->n = a;
-        (*head) = (*head->next);
-        free(temp);
+	a = temp->next->n % temp->n;
+	temp->next->n = a;
+	(*head) = (*head)->next;
+	free(temp);
 }
