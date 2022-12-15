@@ -86,3 +86,44 @@ int check(char *s)
 	}
 	return (flag);
 }
+/**
+ * itoa - converts integer to string
+ *
+ * @n: the integer
+ * Return: the string
+ */
+char *itoa(int n)
+{
+	char *str = malloc(sizeof(char) * 13);
+
+	sprintf(str, "%d", n);
+	return (str);
+}
+/**
+ * checkatoi - checks if a string can be turned into numbers
+ * Description:'A funciton'
+ * @s: the string to be checked
+ * Return: bool; true (1) if string can be converted else false(0)
+ */
+int checkatoi(char *s)
+{
+	char *sa;
+	int i = 0;
+
+	if (s[0] == '-' && s[1] != '\0')
+		i++;
+	while (s[i] != '\0')
+	{
+		if (!(s[i] >= '0' && s[i] <= '9'))
+			return (0);
+		i++;
+	}
+	sa = itoa(atoi(s));
+	if (strcmp(sa, s) != 0)
+	{
+		free(sa);
+		return (0);
+	}
+	free(sa);
+	return (1);
+}

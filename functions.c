@@ -11,7 +11,7 @@ void op_push(stack_t **head, unsigned int line_no)
 	stack_t *temp, *temp2;
 	int n;
 
-	if (!result[1])
+	if (!(result[1]) || checkatoi(result[1]) == 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_no);
 		cleanup(*head);

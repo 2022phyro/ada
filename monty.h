@@ -95,5 +95,6 @@ void (*get_opcode(char *s))(stack_t **, unsigned int);
 void free_stack(stack_t *h);
 void cleanup(stack_t *h);
 int check(char *s);
+int checkatoi(char *s);
 
 #endif /*MONTY_H */
