@@ -14,7 +14,7 @@ void op_add(stack_t **head, unsigned int line_no)
 	ne = (*head);
 	if (!(ne && ne->next))
 	{
-		fprintf(stderr, "%u: can't add, stack too short\n", line_no);
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_no);
 		wre("record", "0");
 		return;
 	}
@@ -40,7 +40,7 @@ void op_sub(stack_t **head, unsigned int line_no)
 	temp = (*head);
 	if (!(temp && temp->next))
 	{
-		fprintf(stderr, "%u: can't sub stack too short\n", line_no);
+		fprintf(stderr, "L%u: can't sub, stack too short\n", line_no);
 		wre("record", "0");
 		return;
 	}
@@ -65,7 +65,7 @@ void op_mul(stack_t **head, unsigned int line_no)
 	temp = (*head);
 	if (!(temp && temp->next))
 	{
-		fprintf(stderr, "%u: can't mul, stack too short\n", line_no);
+		fprintf(stderr, "L%u: can't mul, stack too short\n", line_no);
 		wre("record", "0");
 		return;
 	}
@@ -90,13 +90,13 @@ void op_div(stack_t **head, unsigned int line_no)
 	temp = (*head);
 	if (!(temp && temp->next))
 	{
-		fprintf(stderr, "%u: can't div, stack too short\n", line_no);
+		fprintf(stderr, "L%u: can't div, stack too short\n", line_no);
 		wre("record", "0");
 		return;
 	}
 	if (temp->n == 0)
 	{
-		fprintf(stderr, "%u: division by zero\n", line_no);
+		fprintf(stderr, "L%u: division by zero\n", line_no);
 		wre("record", "0");
 		return;
 	}
@@ -121,13 +121,13 @@ void op_mod(stack_t **head, unsigned int line_no)
 	temp = (*head);
 	if (!(temp && temp->next))
 	{
-		fprintf(stderr, "%u: can't mod, stack too short\n", line_no);
+		fprintf(stderr, "L%u: can't mod, stack too short\n", line_no);
 		wre("record", "0");
 		return;
 	}
 	if (temp->n == 0)
 	{
-		fprintf(stderr, "%u: division by zero\n", line_no);
+		fprintf(stderr, "L%u: division by zero\n", line_no);
 		wre("record", "0");
 		return;
 	}

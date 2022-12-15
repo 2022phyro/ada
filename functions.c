@@ -15,7 +15,7 @@ void push(stack_t **head, unsigned int line_no, char *pa)
 
 	if (pa == NULL)
 	{
-		fprintf(stderr, "%d: usage: push integer\n", line_no);
+		fprintf(stderr, "L%d: usage: push integer\n", line_no);
 		wre("record", "0");
 		return;
 	}
@@ -69,7 +69,7 @@ void op_pint(stack_t **head, unsigned int line_no)
 {
 	if ((*head) == NULL)
 	{
-		fprintf(stderr, "%d: can't pint, stack empty\n", line_no);
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_no);
 		wre("record", "0");
 		return;
 	}
@@ -91,7 +91,7 @@ void op_pop(stack_t **head, unsigned int line_no)
 
 	if ((*head) == NULL)
 	{
-		fprintf(stderr, "%d: can't pop an empty stack\n", line_no);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_no);
 		wre("record", "0");
 		return;
 	}
@@ -117,7 +117,7 @@ void op_swap(stack_t **head, unsigned int line_no)
 	temp = (*head);
 	if (!(temp && temp->next))
 	{
-		fprintf(stderr, "%d: can't swap, stack too short\n", line_no);
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_no);
 		wre("record", "0");
 		return;
 	}

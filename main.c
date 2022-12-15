@@ -57,7 +57,7 @@ int main(int ac, char *av[])
 		{
 			if (check(result[0]) == 0)
 			{
-				fprintf(stderr, "%ld: unknown intruction %s\n", i + 1, result[0]);
+				fprintf(stderr, "L%ld: unknown intruction %s\n", i + 1, result[0]);
 				free(result);
 				cleanup(h, arguments, result, string);
 				break;

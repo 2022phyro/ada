@@ -22,13 +22,13 @@ void op_pchar(stack_t **head, unsigned int line_no)
 {
 	if ((*head) == NULL)
 	{
-		fprintf(stderr, "%u: can't pchar, stack empty\n", line_no);
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_no);
 		wre("record", "0");
 		return;
 	}
-	if ((*head)->n < 32 || (*head)->n > 126)
+	if ((*head)->n < 1 || (*head)->n > 127)
 	{
-		fprintf(stderr, "%u: can't pchar, value out of range\n", line_no);
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_no);
 		wre("record", "0");
 		return;
 	}
@@ -50,7 +50,7 @@ void op_pstr(stack_t **head, unsigned int line_no)
 	temp = (*head);
 	while (temp)
 	{
-		if (temp->n < 32 || temp->n > 126)
+		if (temp->n < 1 || temp->n > 127)
 			break;
 		fprintf(stdout, "%c", temp->n);
 		temp = temp->next;
