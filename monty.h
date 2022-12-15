@@ -13,6 +13,8 @@
 #define bool int
 #define true 1
 #define false 0
+#define STACK 1
+#define QUEUE 0
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -41,7 +43,31 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-void push(stack_t **head, unsigned int line_no, char *pa);
+/**
+ * struct ada - all my clobal variables
+ *
+ * @mode: the mode
+ * @result: the result
+ * @status: the status
+ * @string: the string
+ * @arguments: the arguments
+ */
+typedef struct ada
+{
+	int mode;
+	char **result;
+	char **arguments;
+	char *string;
+	int status;
+} a;
+/* global variables */
+extern int mode;
+extern char **result;
+extern int status;
+extern char *string;
+extern char **arguments;
+/* OPCODES */
+void op_push(stack_t **head, unsigned int line_no);
 void op_pall(stack_t **head, unsigned int line_no);
 void op_pint(stack_t **head, unsigned int line_no);
 void op_pop(stack_t **head, unsigned int line_no);
@@ -58,6 +84,7 @@ void op_rotr(stack_t **head, unsigned int line_no);
 void op_rotl(stack_t **head, unsigned int line_no);
 void op_stack(stack_t **head, unsigned int line_no);
 void op_queue(stack_t **head, unsigned int line_no);
+/* UTILITIES */
 bool appendStr(char ***arr, size_t *size, char *str, int index);
 bool appendChar(char **string, size_t *size, char chr, int index);
 int appendInt(char **string, size_t *size, int num, int index);
@@ -66,7 +93,7 @@ void *_realloc(void *ptr, size_t osize, size_t nsize);
 char *pen(char *filename);
 void (*get_opcode(char *s))(stack_t **, unsigned int);
 void free_stack(stack_t *h);
+void cleanup(stack_t *h);
 int check(char *s);
-void wre(char *fil, char *n);
-int wer(char *fil);
-#endif /* MONTY_H */
+
+#endif /*MONTY_H */

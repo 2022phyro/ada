@@ -21,20 +21,23 @@ void (*get_opcode(char *s))(stack_t **, unsigned int)
 		{"pchar", op_pchar},
 		{"pstr", op_pstr},
 		{"rotl", op_rotl},
+		{"push", op_push},
+		{"stack", op_stack},
+		{"queue", op_queue},
 		{NULL, NULL}
 	};
 	int i;
 
 	i = 0;
 	if (s[0] == '#')
-		return (op[9].f);
-	while (i < 14)
+		return (op_nop);
+	while (i < 17)
 	{
 		if (strcmp(s, op[i].opcode) == 0)
 			return (op[i].f);
 		i++;
 	}
-	return (op[9].f);
+	return (NULL);
 
 }
 /**
@@ -54,4 +57,32 @@ void free_stack(stack_t *h)
 		free(temp);
 	}
 	free(h);
+}
+/**
+ * check - check if an argument i an opcode
+ *
+ * @s: the opcode
+ * Return: 0 or 1
+ */
+int check(char *s)
+{
+	char *st[] = {"push", "pall", "pop", "pint", "swap",
+		"add", "sub", "div", "mul", "mod", "rotl", "rotr",
+		"pchar", "pstr", "stack", "queue", "nop"};
+	int i, flag;
+
+	i = 0;
+	flag = 0;
+	if (s[0] == '#')
+		return (1);
+	while (i < 17)
+	{
+		if (strcmp(s, st[i]) == 0)
+		{
+			flag = 1;
+			break;
+		}
+		i++;
+	}
+	return (flag);
 }

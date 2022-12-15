@@ -1,39 +1,53 @@
 #include "monty.h"
 /**
- * push - pushes an element onto the stack
+ * op_push - pushes an element onto the stack
  *
  * @head: the stack
  * @line_no: the line number of the argument
- * @pa: the integer to be pushed
  * Return: nothing, it is void
  */
-
-void push(stack_t **head, unsigned int line_no, char *pa)
+void op_push(stack_t **head, unsigned int line_no)
 {
-	stack_t *temp;
+	stack_t *temp, *temp2;
 	int n;
 
-	if (pa == NULL)
+	if (!result[1])
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_no);
-		wre("record", "0");
+		cleanup(*head);
 		return;
 	}
-	n = atoi(pa);
+	n = atoi(result[1]);
 	temp = malloc(sizeof(stack_t));
 	if (temp == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		wre("record", "0");
+		cleanup(*head);
 		return;
 	}
-	temp->prev = NULL;
-	temp->next = (*head);
 	temp->n = n;
-	if ((*head) != NULL)
-		(*head)->prev = temp;
-	(*head) = temp;
-	wre("record", "1");
+	if (mode == STACK)
+	{
+		temp->prev = NULL;
+		temp->next = (*head);
+		if ((*head) != NULL)
+			(*head)->prev = temp;
+		(*head) = temp;
+		return;
+	}
+	temp2 = (*head);
+	if (*head == NULL)
+	{
+		temp->prev = NULL;
+		temp->next = (*head);
+		(*head) = temp;
+		return;
+	}
+	while (temp2->next)
+		temp2 = temp2->next;
+	temp2->next = temp;
+	temp->prev = temp2;
+	temp->next = NULL;
 }
 
 /**
@@ -70,11 +84,10 @@ void op_pint(stack_t **head, unsigned int line_no)
 	if ((*head) == NULL)
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_no);
-		wre("record", "0");
+		cleanup(*head);
 		return;
 	}
 	fprintf(stdout, "%d\n", (*head)->n);
-	wre("record", "1");
 }
 
 /**
@@ -92,13 +105,12 @@ void op_pop(stack_t **head, unsigned int line_no)
 	if ((*head) == NULL)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_no);
-		wre("record", "0");
+		cleanup(*head);
 		return;
 	}
 	temp = (*head);
 	(*head) = (*head)->next;
 	free(temp);
-	wre("record", "1");
 }
 
 /**
@@ -118,11 +130,10 @@ void op_swap(stack_t **head, unsigned int line_no)
 	if (!(temp && temp->next))
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n", line_no);
-		wre("record", "0");
+		cleanup(*head);
 		return;
 	}
 	a = temp->n;
 	temp->n = temp->next->n;
 	temp->next->n = a;
-	wre("record", "1");
 }

@@ -1,40 +1,9 @@
 #include "monty.h"
 /**
- * wre - writes an error stats
+ * pen - opens a file
  *
- * @fil: the filename
- * @n: the error status
- * Return: nothing it is void
- */
-void wre(char *fil, char *n)
-{
-	int fd;
-
-	fd = open(fil, O_CREAT | O_RDWR);
-	write(fd, n, 1);
-	close(fd);
-}
-/**
- * wer - read from our error file
- * @fil: the filename
- *
- * Return: the read string as an integer
- */
-int wer(char *fil)
-{
-	int fd;
-	char as[1];
-
-	fd = open(fil, O_RDONLY);
-	read(fd, as, 1);
-	return (atoi(as));
-
-}
-/**
- * pen - opens and reads the contents of a file
- *
- * @filename: the filename
- * Return: a string containing the read bytes
+ * @filename: the file
+ * Return: the contents fo the file
  */
 char *pen(char *filename)
 {
@@ -47,7 +16,7 @@ char *pen(char *filename)
 	if (fd == -1)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", filename);
-		exit(EXIT_FAILURE);
+		status = EXIT_FAILURE;
 	}
 	fstat(fd, &fdstat);
 	size = fdstat.st_size;
@@ -56,7 +25,7 @@ char *pen(char *filename)
 	if (buffer == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		status = EXIT_FAILURE;
 	}
 	read(fd, buffer, size);
 	close(fd);
@@ -99,28 +68,28 @@ void *_realloc(void *ptr, size_t osize, size_t nsize)
 	return (buffer);
 }
 /**
- * check - checks for the opcode
+ * op_stack - changes the mode to stack
  *
- * @s: the string
- * Return: 1 or 0
+ * @head: the stack
+ * @line_no: the line number
+ * Return: nothing it is void
  */
-int check(char *s)
+void op_stack(stack_t **head, unsigned int line_no)
 {
-	char *st[] = {"push", "pall", "pop", "pint", "swap",
-		"add", "sub", "div", "mul", "mod", "rotl", "rotr",
-		"pchar", "pstr", "stack", "queue", "nop"};
-	int i, flag;
-
-	i = 0;
-	flag = 0;
-	while (i < 17)
-	{
-		if (strcmp(s, st[i]) == 0)
-		{
-			flag = 1;
-			break;
-		}
-		i++;
-	}
-	return (flag);
+	mode = STACK;
+	(void)head;
+	(void)line_no;
+}
+/**
+ * op_queue - changes the mode to queue
+ *
+ * @head: the head
+ * @line_no: the line_number
+ * Return: nothing, it is void
+ */
+void op_queue(stack_t **head, unsigned int line_no)
+{
+	mode = QUEUE;
+	(void)head;
+	(void)line_no;
 }

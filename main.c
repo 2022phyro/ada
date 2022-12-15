@@ -1,28 +1,18 @@
 #include "monty.h"
+#include "var.h"
 /**
  * cleanup - frees everything
  *
  * @h: the stack
- * @ag: the argument
- * @s: the opcodes
- * @st: the file
  * Return: nothing, it is voi
  */
-void cleanup(stack_t *h, char **ag, char **s, char *st)
+void cleanup(stack_t *h)
 {
-	int j;
-
-	j = wer("record");
-	if (j == 0)
-	{
-		free_stack(h);
-		free(ag);
-		free(s);
-		free(st);
-		exit(EXIT_FAILURE);
-	}
-	else
-		return;
+	free_stack(h);
+	free(arguments);
+	free(result);
+	free(string);
+	status = EXIT_FAILURE;
 }
 /**
  * main - the main runner of the code
@@ -34,9 +24,8 @@ void cleanup(stack_t *h, char **ag, char **s, char *st)
 int main(int ac, char *av[])
 {
 	stack_t *h = NULL;
-	char **arguments, **result, *string;
-	size_t i = 0;
 	void (*func)(stack_t **, unsigned int);
+	size_t i = 0;
 
 	if (ac < 2)
 	{
@@ -47,25 +36,17 @@ int main(int ac, char *av[])
 	arguments = split(string, "\n", 0);
 	while (arguments[i])
 	{
-		result = split(arguments[i], " ", 0);
-		if (strcmp(result[0], "push") == 0)
+		result = split(arguments[i], " \t", 0);
+		if (check(result[0]) == 0)
 		{
-			push(&h, i + 1, result[1]);
-			cleanup(h, arguments, result, string);
+			fprintf(stderr, "L%ld: unknown instruction %s\n", i + 1, result[0]);
+			cleanup(h);
+			return (EXIT_FAILURE);
 		}
-		else
-		{
-			if (check(result[0]) == 0)
-			{
-				fprintf(stderr, "L%ld: unknown intruction %s\n", i + 1, result[0]);
-				free(result);
-				cleanup(h, arguments, result, string);
-				break;
-			}
-			func = get_opcode(result[0]);
-			func(&h, i + 1);
-			cleanup(h, arguments, result, string);
-		}
+		func = get_opcode(result[0]);
+		func(&h, i + 1);
+		if (status == EXIT_FAILURE)
+			return (status);
 		i++;
 		free(result);
 	}

@@ -23,17 +23,16 @@ void op_pchar(stack_t **head, unsigned int line_no)
 	if ((*head) == NULL)
 	{
 		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_no);
-		wre("record", "0");
+		cleanup(*head);
 		return;
 	}
 	if ((*head)->n < 1 || (*head)->n > 127)
 	{
 		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_no);
-		wre("record", "0");
+		cleanup(*head);
 		return;
 	}
 	fprintf(stdout, "%c", (*head)->n);
-	wre("record", "1");
 }
 /**
  * op_pstr - prints the ascii value in the stack'
@@ -91,19 +90,22 @@ void op_rotl(stack_t **head, unsigned int line_no)
  */
 void op_rotr(stack_t **head, unsigned int line_no)
 {
-	stack_t *top, *bottom;
+	stack_t *bottom, *temp;
 
 	if ((*head) && (*head)->next)
 	{
-		top = (*head)->next;
-		bottom = (*head)->next;
-		while (bottom->next)
+		temp = NULL;
+		bottom = (*head);
+		while (bottom->next != NULL)
+		{
+			temp = bottom;
 			bottom = bottom->next;
-		bottom->prev->next = NULL;
-		(*head)->next = bottom;
-		bottom->prev = (*head);
-		bottom->next = top;
-		top->prev = bottom;
-		(void)line_no;
+		}
+		temp->next = NULL;
+		bottom->prev = NULL;
+		bottom->next = (*head);
+		(*head)->prev = bottom;
+		(*head) = bottom;
 	}
+	(void)line_no;
 }
