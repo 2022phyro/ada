@@ -117,8 +117,6 @@ int appendInt(char **string, size_t *size, int num, int index)
  * @max: the maximum number of times the string should be splitted
  * Set this to 0 to split infinitely
  *
- * @group_quote: text inside quote should be grouped as one token
- *
  * Return: A null-terminated array of strings.
  * NULL is returned if malloc failed or if the string
  * could not be split; this could be because:

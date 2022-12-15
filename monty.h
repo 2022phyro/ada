@@ -64,8 +64,9 @@ int appendInt(char **string, size_t *size, int num, int index);
 char **split(char *string, char *delimiter, unsigned int max);
 void *_realloc(void *ptr, size_t osize, size_t nsize);
 char *pen(char *filename);
-int asci(int n);
 void (*get_opcode(char *s))(stack_t **, unsigned int);
 void free_stack(stack_t *h);
-void free_str(char **s);
+int check(char *s);
+void wre(char *fil, char *n);
+int wer(char *fil);
 #endif /* MONTY_H */

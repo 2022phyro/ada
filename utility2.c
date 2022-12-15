@@ -1,5 +1,36 @@
 #include "monty.h"
 /**
+ * wre - writes an error stats
+ *
+ * @fil: the filename
+ * @n: the error status
+ * Return: nothing it is void
+ */
+void wre(char *fil, char *n)
+{
+	int fd;
+
+	fd = open(fil, O_CREAT | O_RDWR);
+	write(fd, n, 1);
+	close(fd);
+}
+/**
+ * wer - read from our error file
+ * @fil: the filename
+ *
+ * Return: the read string as an integer
+ */
+int wer(char *fil)
+{
+	int fd;
+	char as[1];
+
+	fd = open(fil, O_RDONLY);
+	read(fd, as, 1);
+	return (atoi(as));
+
+}
+/**
  * pen - opens and reads the contents of a file
  *
  * @filename: the filename
@@ -22,7 +53,11 @@ char *pen(char *filename)
 	size = fdstat.st_size;
 
 	buffer = malloc(sizeof(char) * size + 1);
-
+	if (buffer == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 	read(fd, buffer, size);
 	close(fd);
 	buffer[size] = '\0';
@@ -63,4 +98,29 @@ void *_realloc(void *ptr, size_t osize, size_t nsize)
 	free(ptr);
 	return (buffer);
 }
+/**
+ * check - checks for the opcode
+ *
+ * @s: the string
+ * Return: 1 or 0
+ */
+int check(char *s)
+{
+	char *st[] = {"push", "pall", "pop", "pint", "swap",
+		"add", "sub", "div", "mul", "mod", "rotl", "rotr",
+		"pchar", "pstr", "stack", "queue", "nop"};
+	int i, flag;
 
+	i = 0;
+	flag = 0;
+	while (i < 17)
+	{
+		if (strcmp(s, st[i]) == 0)
+		{
+			flag = 1;
+			break;
+		}
+		i++;
+	}
+	return (flag);
+}

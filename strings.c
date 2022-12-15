@@ -12,7 +12,7 @@ void op_nop(stack_t **head, unsigned int line_no)
 	(void)line_no;
 }
 /**
- * op_pchar prints ascii
+ * op_pchar - prints ascii
  *
  * @head: the stack
  * @line_no: the line_number
@@ -22,15 +22,18 @@ void op_pchar(stack_t **head, unsigned int line_no)
 {
 	if ((*head) == NULL)
 	{
-		fprintf(stderr, "%ld: can't pchar, stack empty\n", line_no);
-		exit(EXIT_FAILURE);
+		fprintf(stderr, "%u: can't pchar, stack empty\n", line_no);
+		wre("record", "0");
+		return;
 	}
 	if ((*head)->n < 32 || (*head)->n > 126)
 	{
-		fprintf(stderr, "%ld: can't pchar, value out of range\n", line_no);
-		exit(EXIT_FAILURE);
+		fprintf(stderr, "%u: can't pchar, value out of range\n", line_no);
+		wre("record", "0");
+		return;
 	}
 	fprintf(stdout, "%c", (*head)->n);
+	wre("record", "1");
 }
 /**
  * op_pstr - prints the ascii value in the stack'

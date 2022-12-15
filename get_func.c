@@ -38,25 +38,6 @@ void (*get_opcode(char *s))(stack_t **, unsigned int)
 
 }
 /**
- * free_str - free a string
- *
- * @s: the array of strings to be freed
- * Return: nothing, it is void
- */
-void free_str(char **s)
-{
-	int i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s[i]);
-
-}
-/**
  * free_stack - frees a stack
  *
  * @h: the head of the stack
@@ -73,16 +54,4 @@ void free_stack(stack_t *h)
 		free(temp);
 	}
 	free(h);
-}
-/**
- * asci - checks if a character is ascii
- *
- * @s: the number
- * Return: true or false
- */
-int asci(int n)
-{
-	if (n < 32 || n > 126)
-		return (0);
-	return (1);
 }
