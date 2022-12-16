@@ -24,6 +24,7 @@ void (*get_opcode(char *s))(stack_t **, unsigned int)
 		{"push", op_push},
 		{"stack", op_stack},
 		{"queue", op_queue},
+		{"rotr", op_rotr},
 		{NULL, NULL}
 	};
 	int i;
@@ -31,7 +32,7 @@ void (*get_opcode(char *s))(stack_t **, unsigned int)
 	i = 0;
 	if (s[0] == '#')
 		return (op_nop);
-	while (i < 17)
+	while (i < 18)
 	{
 		if (strcmp(s, op[i].opcode) == 0)
 			return (op[i].f);
@@ -92,10 +93,14 @@ int check(char *s)
  * @n: the integer
  * Return: the string
  */
-char *itoa(int n)
+char *itoan(int n)
 {
 	char *str = malloc(sizeof(char) * 13);
-
+	if (str == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		return (NULL);
+	}
 	sprintf(str, "%d", n);
 	return (str);
 }
@@ -118,7 +123,7 @@ int checkatoi(char *s)
 			return (0);
 		i++;
 	}
-	sa = itoa(atoi(s));
+	sa = itoan(atoi(s));
 	if (strcmp(sa, s) != 0)
 	{
 		free(sa);

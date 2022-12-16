@@ -60,12 +60,13 @@ typedef struct ada
 	char *string;
 	int status;
 } a;
-/* global variables */
+/* GLOBAL VARIABLES */
 extern int mode;
 extern char **result;
 extern int status;
 extern char *string;
 extern char **arguments;
+
 /* OPCODES */
 void op_push(stack_t **head, unsigned int line_no);
 void op_pall(stack_t **head, unsigned int line_no);
@@ -84,10 +85,9 @@ void op_rotr(stack_t **head, unsigned int line_no);
 void op_rotl(stack_t **head, unsigned int line_no);
 void op_stack(stack_t **head, unsigned int line_no);
 void op_queue(stack_t **head, unsigned int line_no);
+
 /* UTILITIES */
 bool appendStr(char ***arr, size_t *size, char *str, int index);
-bool appendChar(char **string, size_t *size, char chr, int index);
-int appendInt(char **string, size_t *size, int num, int index);
 char **split(char *string, char *delimiter, unsigned int max);
 void *_realloc(void *ptr, size_t osize, size_t nsize);
 char *pen(char *filename);

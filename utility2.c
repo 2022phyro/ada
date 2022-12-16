@@ -16,7 +16,7 @@ char *pen(char *filename)
 	if (fd == -1)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", filename);
-		status = EXIT_FAILURE;
+		exit(EXIT_FAILURE);
 	}
 	fstat(fd, &fdstat);
 	size = fdstat.st_size;
@@ -25,7 +25,7 @@ char *pen(char *filename)
 	if (buffer == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		status = EXIT_FAILURE;
+		exit(EXIT_FAILURE);
 	}
 	read(fd, buffer, size);
 	close(fd);
@@ -58,8 +58,12 @@ void *_realloc(void *ptr, size_t osize, size_t nsize)
 	else
 		nbytes = nsize;
 	buffer = malloc(nsize);
-	if (!buffer)
+	if (buffer == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		status = EXIT_FAILURE;
 		return (NULL);
+	}
 	if (!ptr)
 		return (buffer);
 	for (b = 0; b < nbytes; b++)

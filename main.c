@@ -27,7 +27,7 @@ int main(int ac, char *av[])
 	void (*func)(stack_t **, unsigned int);
 	size_t i = 0;
 
-	if (ac < 2)
+	if (ac != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);

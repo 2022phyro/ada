@@ -36,77 +36,6 @@ bool appendStr(char ***arr, size_t *size, char *str, int index)
 	*size = arr_size;
 	return (true);
 }
-
-/**
- * appendChar - appends a character to a string
- *
- * @string: a pointer to malloced string
- * @size: a pointer to an integer holding the size of the string
- * @chr: the character to add to the string
- * @index: the index at which to insert the character
- *
- * Return: 1 if succeeded, or 0 if it failed
- */
-
-bool appendChar(char **string, size_t *size, char chr, int index)
-{
-	size_t buf_size;
-	char *buf;
-
-	if (!(string && *string))
-		return (false);
-
-	if (size == NULL)
-		for (buf_size = 0; (*string)[buf_size]; buf_size++)
-			continue;
-	else
-		buf_size = *size;
-	buf = *string;
-
-	while (buf_size <= (unsigned int)index)
-	{
-		if (buf_size == 0)
-			buf_size++;
-		buf = _realloc(buf, buf_size, buf_size * 2);
-		buf_size *= 2;
-		if (!buf)
-			return (false);
-	}
-	buf[index] = chr;
-	*string = buf;
-	if (size != NULL)
-		*size = buf_size;
-	return (true);
-}
-
-/**
- * appendInt - appends an integer to a string
- *
- * @string: a pointer to malloced string
- * @size: a pointer to an integer holding the size of the string
- * @num: the integer to insert
- * @index: the index at which to insert the character
- *
- * Return: number of digits appended.
- *		-1 is return if appendChar failed.
- */
-
-int appendInt(char **string, size_t *size, int num, int index)
-{
-	int len = 0;
-
-	if (num < 0)
-	{
-		appendChar(string, size, '-', index + len);
-		num *= -1;
-		len++;
-	}
-	if (num < 10)
-		return (len + appendChar(string, size, ('0' + num), index + len));
-	len += appendInt(string, size, num / 10, index + len);
-	len += appendChar(string, size, (num % 10) + '0', index + len);
-	return (len);
-}
 /**
  * split - split a string using a delimiter
  *
@@ -138,6 +67,12 @@ char **split(char *string, char *delimiter, unsigned int max)
 	if (!(string && *string && delimiter && *delimiter))
 		return (NULL);
 	array = malloc(NPTRS(arr_size));
+	if (array == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		status = EXIT_FAILURE;
+		return (NULL);
+	}
 	for (str_ind = 0; string[str_ind]; str_ind++)
 	{
 		curr = string[str_ind];
