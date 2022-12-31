@@ -88,7 +88,7 @@ void op_queue(stack_t **head, unsigned int line_no);
 
 /* UTILITIES */
 bool appendStr(char ***arr, size_t *size, char *str, int index);
-char **split(char *string, char *delimiter, unsigned int max);
+char **split(char *string, char *delimiter);
 void *_realloc(void *ptr, size_t osize, size_t nsize);
 char *pen(char *filename);
 void (*get_opcode(char *s))(stack_t **, unsigned int);

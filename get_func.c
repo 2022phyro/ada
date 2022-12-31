@@ -124,7 +124,10 @@ int checkatoi(char *s)
 		i++;
 	}
 	sa = itoan(atoi(s));
-	if (strcmp(sa, s) != 0)
+	if (strcmp(s, "-0") == 0)
+		;
+
+	else if (strcmp(sa, s) != 0)
 	{
 		free(sa);
 		return (0);

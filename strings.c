@@ -32,7 +32,7 @@ void op_pchar(stack_t **head, unsigned int line_no)
 		cleanup(*head);
 		return;
 	}
-	fprintf(stdout, "%c", (*head)->n);
+	fprintf(stdout, "%c\n", (*head)->n);
 }
 /**
  * op_pstr - prints the ascii value in the stack'

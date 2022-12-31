@@ -33,10 +33,10 @@ int main(int ac, char *av[])
 		exit(EXIT_FAILURE);
 	}
 	string = pen(av[1]);
-	arguments = split(string, "\n", 0);
+	arguments = split(string, "\n");
 	while (arguments[i])
 	{
-		result = split(arguments[i], " \t", 0);
+		result = split(arguments[i], " \t");
 		if (check(result[0]) == 0)
 		{
 			fprintf(stderr, "L%ld: unknown instruction %s\n", i + 1, result[0]);
